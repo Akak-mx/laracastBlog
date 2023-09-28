@@ -15,4 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('posts'));
 
-Route::get('post', fn () => view('post'));
+Route::get('posts/{post}', function($stub) {
+    $path = __DIR__."/../resources/views/posts/{$stub}.html";
+
+    if (! file_exists($path)) {
+        return redirect('/');
+    }
+
+    $post = file_get_contents($path);
+    return view('post', [
+        'post' => $post
+    ]);
+});
