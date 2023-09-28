@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,17 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('posts'));
+// Route::get('/', function () {
 
-Route::get('posts/{post}', function ($slug) {
+//     return view('posts', [
+//         'posts' => Post::all(),
+//     ]);
+// });
 
-    if (! file_exists($path = __DIR__."/../resources/views/posts/{$slug}.html")) {
-        return redirect('/');
-    }
+Route::get('/', fn () => view('posts', [
+    'posts' => Post::all(),
+]));
 
-    $post = cache()->remember("posts/{$slug}", 1200, fn () => file_get_contents($path));
+// Route::get('posts/{post}', function ($slug) {
 
-    return view('post', [
-        'post' => $post,
-    ]);
-})->whereAlpha('slug');
+//     return view('post', [
+//         'post' => Post::find($slug),
+//     ]);
+
+// })->whereAlpha('slug');
+
+Route::get('posts/{post}', fn ($slug) => view('post', [
+    'post' => Post::find($slug),
+])
+)->whereAlpha('slug');
