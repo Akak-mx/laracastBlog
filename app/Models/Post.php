@@ -18,15 +18,18 @@ class Post
 
     public static function all()
     {
-        return collect(File::files(resource_path('views/posts')))
-            ->map(fn ($file) => YamlFrontMatter::parseFile($file))
-            ->map(fn ($document) => new self(
-                $document->title,
-                $document->slug,
-                $document->excerpt,
-                $document->date,
-                $document->body()
-            ));
+        return cache()->remember('posts.all', 60, function() {
+            return collect(File::files(resource_path('views/posts')))
+                ->map(fn ($file) => YamlFrontMatter::parseFile($file))
+                ->map(fn ($document) => new self(
+                    $document->title,
+                    $document->slug,
+                    $document->excerpt,
+                    $document->date,
+                    $document->body()
+                ))
+                ->sortByDesc('date');
+        });
     }
 
     public static function find($slug)
