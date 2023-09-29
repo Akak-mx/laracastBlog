@@ -10,11 +10,11 @@
 <body>
     <article>
         <h1>
-            <?= $post->title ?>
+            {{ $post->title }}
         </h1>
         <div>
-            <?= $post->body ?>
-        </div>
+            {!! $post->body !!}
+        </d>
     </article>
     <a href="/">Go Back</a>
 </body>
