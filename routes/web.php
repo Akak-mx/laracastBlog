@@ -9,6 +9,6 @@ Route::get('/', fn () => view('posts', ['posts' => Post::latest()->with(['catego
 
 Route::get('posts/{post:slug}', fn (Post $post) => view('post', ['post' => $post]));
 
-Route::get('/categories/{category:slug}', fn (Category $category) => view('posts', ['posts' => $category->posts]));
+Route::get('/categories/{category:slug}', fn (Category $category) => view('posts', ['posts' => $category->posts->load(['category', 'author'])]));
 
-Route::get('/authors/{author:username}', fn (User $author) => view('posts', ['posts' => $author->posts]));
+Route::get('/authors/{author:username}', fn (User $author) => view('posts', ['posts' => $author->posts->load(['category', 'author'])]));
