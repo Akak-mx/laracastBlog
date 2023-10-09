@@ -28,4 +28,8 @@
 
         @include('_footer')
     </section>
+
+    <x-flash :session="session()->has('success')">
+        {{ session('success') }}
+    </x-flash>
 </body>
