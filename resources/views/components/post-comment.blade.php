@@ -15,7 +15,7 @@
                 <p class="text-xs">
                     Posted 
                     <time>
-                        {{ $comment->created_at }}
+                        {{ $comment->created_at->format('F j, Y, g:i a') }}
                     </time>
                 </p>
             </header>
