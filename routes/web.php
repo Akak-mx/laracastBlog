@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NewsletterSubscriptionController;
+use App\Http\Controllers\NewsletterUnsubscriptionController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -18,15 +20,5 @@ Route::get('/login', [SessionController::class, 'create'])->middleware('guest');
 Route::post('/login', [SessionController::class, 'store'])->middleware('guest');
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
-Route::get('/ping', function() {
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig(['apiKey' => config('services.mailchimp.key'),'server' => config('services.mailchimp.server'),]);
-
-    $response = $mailchimp->lists->addListMember('id..', [
-        'email_address' => 'akak@test.com',
-        'status' => 'subscribed',
-    ]);
-
-    ddd($response);
-});
+Route::post('/newsletter', NewsletterSubscriptionController::class);
+Route::get('/newsletter', NewsletterUnsubscriptionController::class);
