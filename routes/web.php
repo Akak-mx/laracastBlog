@@ -22,3 +22,5 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 
 Route::post('/newsletter', NewsletterSubscriptionController::class);
 Route::get('/newsletter', NewsletterUnsubscriptionController::class);
+
+Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
