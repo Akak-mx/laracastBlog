@@ -1,9 +1,12 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <form action="/admin/posts" method="POST">
+    <section class="px-6 py-8 max-w-md mx-auto">
+        <h1 class="text-lg font-bold mb-4">
+            Submit new Post
+        </h1>
+        <form action="/admin/posts" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <x-panel class="max-w-sm mx-auto">
+            <x-panel>
                 <div class="mb-6">
                     <label for="title" class="block mb-2 uppercase font-bold text-xs text-gray-700">
                         Title
@@ -66,6 +69,22 @@
                     >{{ old('body') }}
                     </textarea>
                     @error('textarea')
+                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label for="thumbnail" class="block mb-2 uppercase font-bold text-xs text-gray-700">
+                        Thumbnail
+                    </label>
+                    <input
+                        class="border border-gray-400 p-2 w-full"
+                        type="file"
+                        name="thumbnail"
+                        id="thumbnail"
+                        value="{{ old('thumbnail')}}"
+                    >
+                    @error('thumbnail')
                         <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
                     @enderror
                 </div>
