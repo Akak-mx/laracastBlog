@@ -7,92 +7,18 @@
             @csrf
 
             <x-panel>
-                <div class="mb-6">
-                    <label for="title" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Title
-                    </label>
-                    <input
-                        class="border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="title"
-                        id="title"
-                        value="{{ old('title')}}"
-                        required
-                    >
-                    @error('title')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                <x-form.input name="title" />
 
-                <div class="mb-6">
-                    <label for="slug" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Slug
-                    </label>
-                    <input
-                        class="border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="slug"
-                        id="slug"
-                        value="{{ old('slug') }}"
-                        required
-                    >
-                    @error('slug')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                <x-form.input name="slug" />
 
-                <div class="mb-6">
-                    <label for="excerpt" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Excerpt
-                    </label>
-                    <textarea
-                        class="border border-gray-400 p-2 w-full"
-                        name="excerpt"
-                        id="excerpt"
-                        required
-                    >{{ old('excerpt') }}
-                    </textarea>
-                    @error('textarea')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                <x-form.textarea name="excerpt" />
 
-                <div class="mb-6">
-                    <label for="body" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Body
-                    </label>
-                    <textarea
-                        class="border border-gray-400 p-2 w-full"
-                        name="body"
-                        id="body"
-                        required
-                    >{{ old('body') }}
-                    </textarea>
-                    @error('textarea')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                <x-form.textarea name="body" />
 
-                <div class="mb-6">
-                    <label for="thumbnail" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Thumbnail
-                    </label>
-                    <input
-                        class="border border-gray-400 p-2 w-full"
-                        type="file"
-                        name="thumbnail"
-                        id="thumbnail"
-                        value="{{ old('thumbnail')}}"
-                    >
-                    @error('thumbnail')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                <x-form.input name="thumbnail" type="file" />
 
-                <div class="mb-6">
-                    <label for="category_id" class="block mb-2 uppercase font-bold text-xs text-gray-700">
-                        Category
-                    </label>
+                <x-form.field name="category_id">
+                    <x-form.label name="category" />
                     <select name="category_id" id="category_id">
                         @php
                             $categories = App\Models\Category::all();
@@ -106,10 +32,8 @@
                             </option>
                         @endforeach
                     </select>
-                    @error('category_id')
-                        <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
+                </x-form.field>
+
 
                 <x-submit-button>Publish</x-submit-button>
 

@@ -29,12 +29,12 @@ class PostController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'title' => ['required'],
-            'slug' => ['required', Rule::unique('posts', 'slug')],
-            'thumbnail' => ['required', 'image'],
-            'excerpt' => ['required'],
-            'body' => ['required'],
-            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'title' => ['required',],
+            'slug' => ['required', Rule::unique('posts', 'slug'),],
+            'thumbnail' => ['required', 'image',],
+            'excerpt' => ['required',],
+            'body' => ['required',],
+            'category_id' => ['required', Rule::exists('categories', 'id'),],
         ]);
 
         $attributes['user_id'] = auth()->id();
