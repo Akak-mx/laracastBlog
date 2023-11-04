@@ -34,9 +34,7 @@
                     </select>
                 </x-form.field>
 
-
-                <x-submit-button>Publish</x-submit-button>
-
+                <x-form.button>Publish</x-form>
             </x-panel>
         </form>
     </section>

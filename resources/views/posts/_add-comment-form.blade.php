@@ -10,12 +10,10 @@
             </header>
             <div class="mt-6">
                 <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" rows="5" placeholder="Quick, say something!" required></textarea>
-                @error('name')
-                    <span class="text-xs text-red-500 mt-1">{{ $message }}</span>
-                @enderror
+                <x-form.error name="body" />
             </div>
             <div class="flex justify-end mt-6 pt-6 border-t border-gray-200">
-                <x-submit-button>POST</x-submit-button>
+                <x-form.button>POST</x-form.button>
             </div>
         </form>
     </x-panel>
