@@ -11,9 +11,8 @@
         type="{{ $type }}"
         name="{{ $name }}"
         id="{{ $name }}"
-        value="{{ old($name)}}"
-        required
-        {{ $attributes }}
+        {{ $attributes(['value' => old($name)]) }}
+        {{-- required ahora se agrega manualente para darle hints al browser del user --}}
     >
 
     <x-form.error name="{{ $name }}" />
