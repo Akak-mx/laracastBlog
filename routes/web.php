@@ -24,9 +24,25 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 Route::post('/newsletter', NewsletterSubscriptionController::class);
 Route::get('/newsletter', NewsletterUnsubscriptionController::class);
 
-Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
-Route::post('/admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
-Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
-Route::get('/admin/posts/{post:slug}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
-Route::patch('/admin/posts/{post:slug}/', [AdminPostController::class, 'update'])->middleware('admin');
-Route::delete('/admin/posts/{post:slug}/', [AdminPostController::class, 'destroy'])->middleware('admin');
+/* Opción eliminada pero que sirve */
+// Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin');
+// Route::post('/admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
+// Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin');
+// Route::get('/admin/posts/{post:slug}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
+// Route::patch('/admin/posts/{post:slug}/', [AdminPostController::class, 'update'])->middleware('admin');
+// Route::delete('/admin/posts/{post:slug}/', [AdminPostController::class, 'destroy'])->middleware('admin');
+
+/* Otra opción de user los gates con el middleare de can y la nueva lógica */
+// Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('can:admins');
+// Route::post('/admin/posts', [AdminPostController::class, 'store'])->middleware('can:admins');
+// Route::get('/admin/posts/create', [AdminPostController::class, 'create'])->middleware('can:admins');
+// Route::get('/admin/posts/{post:slug}/edit', [AdminPostController::class, 'edit'])->middleware('can:admins');
+// Route::patch('/admin/posts/{post:slug}/', [AdminPostController::class, 'update'])->middleware('can:admins');
+// Route::delete('/admin/posts/{post:slug}/', [AdminPostController::class, 'destroy'])->middleware('can:admins');
+
+/* y agrupando simplificado */
+Route::middleware('can:admins')->group(function() {
+    Route::resource('admin/posts', AdminPostController::class)
+        ->scoped(['post' => 'slug'])
+        ->except('show');
+});

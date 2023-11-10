@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Services\Newsletter;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use MailchimpMarketing\ApiClient;
 
@@ -28,6 +31,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('admins', function(User $user) {
+            return $user?->email === 'akak@admin.com';
+        });
+
+        Blade::if('admin', function () {
+            return auth()->user()?->can('admins');
+        });
     }
 }

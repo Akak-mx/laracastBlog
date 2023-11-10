@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class AdminPostController extends Controller
