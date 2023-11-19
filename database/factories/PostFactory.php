@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -21,8 +23,9 @@ class PostFactory extends Factory
         return [
             'category_id' => Category::factory(),
             'user_id' => User::factory(),
-            'title' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(),
+            'title' => $title = $this->faker->sentence(),
+            'slug' => Str::slug($title),
+            'thumbnail' => Storage::disk('public')->putFile('/thumbnails', fake()->image()),
             'excerpt' => collect($this->faker->paragraphs(2))->map(fn ($item) => "<p>{$item}</p>")->implode(''),
             'body' => collect($this->faker->paragraphs(6))->map(fn ($item) => "<p>{$item}</p>")->implode(''),
         ];

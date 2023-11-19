@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,22 @@ class DatabaseSeeder extends Seeder
             'email' => 'akak@admin.com',
         ]);
 
-        Post::factory(30)->create();
+        // necesito categorias
+        $categories = [
+            'Nightlife',
+            'Culture',
+            'Lifestile',
+            'Sports',
+            'Retirement',
+        ];
+
+        foreach ($categories as $category) {
+            Category::factory()->hasPosts(5)->create([
+                'name' => $category,
+                'name' => strtolower($category),
+            ]);
+        }
+
+        // Post::factory(30)->create();
     }
 }
